@@ -46,16 +46,68 @@ Configure o arquivo `.env` com os seguintes valores:
 
 ---
 
-## ▶️ Executar
+## 🗄️ Configuração do Banco de Dados
+
+O banco de dados utilizado é o **MongoDB**. Não é necessário criar tabelas ou collections manualmente — o Mongoose cria a estrutura automaticamente na primeira execução da API.
+
+Você pode rodar o projeto de duas formas:
+
+---
+
+### 🐳 Opção 1 — Com Docker (recomendado)
+
+> Não precisa instalar Node.js nem MongoDB na máquina. Basta ter o [Docker](https://www.docker.com/) instalado.
 ```bash
-# Desenvolvimento (com hot-reload)
+# Sobe a API e o MongoDB juntos com um único comando
+docker-compose up
+```
+
+A API estará disponível em `http://localhost:3000` e o MongoDB subirá automaticamente em um container isolado.
+
+Para encerrar:
+```bash
+docker-compose down
+```
+
+---
+
+### 💻 Opção 2 — Sem Docker (ambiente local)
+
+> Requer **Node.js 18+** e **MongoDB** instalados na máquina.
+
+**1. Instale o MongoDB** (caso não tenha):
+```bash
+# Ubuntu/WSL
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
+  sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] \
+https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
+sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+```
+
+**2. Inicie o MongoDB:**
+```bash
+sudo systemctl start mongod
+```
+
+**3. Suba a API:**
+```bash
 npm run dev
+```
 
-# Produção
-npm start
+A API estará disponível em `http://localhost:3000`.
 
-# Testes
-npm test
+---
+
+## ▶️ Scripts disponíveis
+```bash
+npm run dev   # Desenvolvimento com hot-reload
+npm start     # Produção
+npm test      # Testes de integração
 ```
 
 ---
